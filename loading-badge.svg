@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Anything Worker badge">
+  <defs>
+    <style>
+      .navy{stroke:#002a6d;fill:none;stroke-width:12}
+      .t{font-family:'Yu Gothic',sans-serif;fill:#002a6d;font-weight:700}
+    </style>
+  </defs>
+  <circle cx="300" cy="300" r="260" class="navy"/>
+  <circle cx="300" cy="300" r="190" class="navy"/>
+  <text x="300" y="96" text-anchor="middle" class="t" font-size="44">便利屋わたら</text>
+  <text x="300" y="525" text-anchor="middle" class="t" font-size="54">anything worker</text>
+  <circle cx="300" cy="300" r="95" fill="#ffffff" stroke="#002a6d" stroke-width="8"/>
+  <path d="M230 340c35-20 105-20 140 0" stroke="#002a6d" stroke-width="16" fill="none" stroke-linecap="round"/>
+  <circle cx="265" cy="270" r="14" fill="#002a6d"/>
+  <circle cx="335" cy="270" r="14" fill="#002a6d"/>
+</svg>
