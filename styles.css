@@ -36,7 +36,7 @@ body {
   width: min(70vw, 420px);
   aspect-ratio: 1 / 1;
   object-fit: contain;
-  animation: spin 2.16s linear infinite;
+  animation: spin 5s linear infinite;
 }
 
 .loading-text {
