@@ -30,23 +30,70 @@
     window.scrollTo({ top: 0, behavior: "auto" });
   }
 
+
+  function closeMenu(button) {
+    const menuId = button.getAttribute("aria-controls");
+    const menu = menuId ? document.getElementById(menuId) : null;
+
+    button.setAttribute("aria-expanded", "false");
+    menu?.classList.remove("is-open");
+  }
+
+  function closeAllMenus(exceptButton = null) {
+    document.querySelectorAll("[data-menu-toggle]").forEach((button) => {
+      if (button !== exceptButton) {
+        closeMenu(button);
+      }
+    });
+  }
+
+  function toggleMenu(button) {
+    const menuId = button.getAttribute("aria-controls");
+    const menu = menuId ? document.getElementById(menuId) : null;
+
+    if (!menu) return;
+
+    const willOpen = button.getAttribute("aria-expanded") !== "true";
+    closeAllMenus(button);
+    button.setAttribute("aria-expanded", String(willOpen));
+    menu.classList.toggle("is-open", willOpen);
+  }
+
   function getPathFromLink(link) {
     return link.dataset.link;
   }
 
   document.addEventListener("click", async (event) => {
+    const menuButton = event.target.closest("[data-menu-toggle]");
+    if (menuButton) {
+      toggleMenu(menuButton);
+      return;
+    }
+
     const link = event.target.closest("a[data-link]");
-    if (!link) return;
+    if (!link) {
+      if (!event.target.closest(".banner-menu")) {
+        closeAllMenus();
+      }
+      return;
+    }
 
     const path = getPathFromLink(link);
     if (!path) return;
 
     event.preventDefault();
+    closeAllMenus();
 
     try {
       await loadPage(path);
     } catch (error) {
       window.location.href = path;
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeAllMenus();
     }
   });
 

@@ -30,14 +30,26 @@
     <header class="site-header">
       <div class="header-inner">
         <a class="logo" href="#" data-link="index.html">My Profile Site</a>
-        <nav>
-          <ul class="nav-list">
-            <li><a href="#" data-link="index.html">入口</a></li>
-            <li><a href="#" data-link="profile.html">個人ページ</a></li>
-            <li><a href="#" data-link="hobbies.html">趣味</a></li>
-            <li><a href="#" data-link="motorcycle.html">オートバイ</a></li>
-            <li><a href="#" data-link="online-game.html">ゲーム</a></li>
-          </ul>
+        <nav class="banner-menu" aria-label="バナーメニュー">
+          <div class="menu-group">
+            <button class="menu-trigger" type="button" aria-expanded="false" aria-controls="sns-menu" data-menu-toggle="sns-menu">SNS</button>
+            <ul class="slide-menu" id="sns-menu" aria-label="SNSリンク">
+              <li><a href="https://x.com/" target="_blank" rel="noopener noreferrer">X</a></li>
+              <li><a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+              <li><a href="https://github.com/watarimaycry2" target="_blank" rel="noopener noreferrer">Github</a></li>
+            </ul>
+          </div>
+          <div class="menu-group">
+            <button class="menu-trigger" type="button" aria-expanded="false" aria-controls="intro-menu" data-menu-toggle="intro-menu">紹介</button>
+            <ul class="slide-menu" id="intro-menu" aria-label="紹介リンク">
+              <li><a href="#" data-link="profile.html">基本情報</a></li>
+              <li><a href="#" data-link="maple.html">メイプル</a></li>
+              <li><a href="#" data-link="programmer.html">プログラマ</a></li>
+              <li><a href="#" data-link="motorcycle.html">オートバイ</a></li>
+              <li><a href="#" data-link="new-things.html">新しいこと</a></li>
+              <li><a href="#" data-link="generated-character.html">生成キャラのこと</a></li>
+            </ul>
+          </div>
         </nav>
       </div>
     </header>
