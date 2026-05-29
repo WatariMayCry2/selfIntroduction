@@ -1,12 +1,26 @@
 (function () {
   const DEFAULT_PATH = "index.html";
+  const HEADER_PATH = "header/site-header.html";
+  const BASE_URL = new URL("./", window.location.href);
+
+  function toAppUrl(path) {
+    return new URL(path, BASE_URL);
+  }
 
   async function fetchHtml(path) {
-    const response = await fetch(path);
+    const response = await fetch(toAppUrl(path));
     if (!response.ok) {
       throw new Error(`${path} の読み込みに失敗しました`);
     }
     return response.text();
+  }
+
+  async function loadHeader() {
+    const headerSlot = document.getElementById("header-slot");
+    if (!headerSlot) return;
+
+    const html = await fetchHtml(HEADER_PATH);
+    headerSlot.innerHTML = html;
   }
 
   async function loadPage(path, push = true) {
@@ -24,7 +38,7 @@
     document.title = doc.title || document.title;
 
     if (push) {
-      history.pushState({ path }, "", path);
+      history.pushState({ path }, "", toAppUrl(path));
     }
 
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -62,6 +76,15 @@
   function getPathFromLink(link) {
     return link.dataset.link;
   }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    loadHeader().catch(() => {
+      const headerSlot = document.getElementById("header-slot");
+      if (headerSlot) {
+        headerSlot.innerHTML = '<p class="header-error">ヘッダーの読み込みに失敗しました</p>';
+      }
+    });
+  });
 
   document.addEventListener("click", async (event) => {
     const menuButton = event.target.closest("[data-menu-toggle]");
