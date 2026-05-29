@@ -170,7 +170,10 @@ body {
 }
 
 .slide-menu a {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
   padding: 9px 12px;
   border-radius: 10px;
   color: var(--text);
@@ -178,11 +181,22 @@ body {
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
+.external-link-icon {
+  color: var(--muted);
+  font-size: 0.75em;
+  transition: color 0.2s ease;
+}
+
 .slide-menu a:hover,
 .slide-menu a:focus-visible {
   background: #edf3ff;
   color: var(--primary-dark);
   transform: translateX(-2px);
+}
+
+.slide-menu a:hover .external-link-icon,
+.slide-menu a:focus-visible .external-link-icon {
+  color: var(--primary-dark);
 }
 
 main {
