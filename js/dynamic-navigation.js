@@ -1,5 +1,4 @@
 (function () {
-  const DEFAULT_PATH = "index.html";
   const HEADER_PATH = "header/site-header.html";
   const BASE_URL = new URL("./", window.location.href);
 
@@ -23,7 +22,7 @@
     headerSlot.innerHTML = html;
   }
 
-  async function loadPage(path, push = true) {
+  async function loadPage(path) {
     const html = await fetchHtml(path);
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
@@ -37,13 +36,22 @@
     currentMain.replaceWith(nextMain);
     document.title = doc.title || document.title;
 
-    if (push) {
-      history.pushState({ path }, "", toAppUrl(path));
-    }
-
     window.scrollTo({ top: 0, behavior: "auto" });
   }
 
+  function showNavigationError() {
+    const currentMain = document.querySelector("main");
+    if (!currentMain) return;
+
+    currentMain.innerHTML = `
+      <div class="container">
+        <section class="card">
+          <h1>ページの読み込みに失敗しました</h1>
+          <p>時間をおいて、もう一度リンクをクリックしてください。</p>
+        </section>
+      </div>
+    `;
+  }
 
   function closeMenu(button) {
     const menuId = button.getAttribute("aria-controls");
@@ -110,23 +118,13 @@
     try {
       await loadPage(path);
     } catch (error) {
-      window.location.href = path;
+      showNavigationError();
     }
   });
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       closeAllMenus();
-    }
-  });
-
-  window.addEventListener("popstate", async (event) => {
-    const path = event.state?.path || window.location.pathname.split("/").pop() || DEFAULT_PATH;
-
-    try {
-      await loadPage(path, false);
-    } catch (error) {
-      window.location.href = path;
     }
   });
 })();
