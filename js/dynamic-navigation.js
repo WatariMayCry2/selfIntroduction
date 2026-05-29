@@ -22,6 +22,16 @@
     headerSlot.innerHTML = html;
   }
 
+  function playPageFadeIn(element) {
+    const cleanup = () => {
+      element.classList.remove("page-fade-in");
+    };
+
+    element.classList.add("page-fade-in");
+    element.addEventListener("animationend", cleanup, { once: true });
+    window.setTimeout(cleanup, 600);
+  }
+
   async function loadPage(path) {
     const html = await fetchHtml(path);
     const parser = new DOMParser();
@@ -34,6 +44,7 @@
     }
 
     currentMain.replaceWith(nextMain);
+    playPageFadeIn(nextMain);
     document.title = doc.title || document.title;
 
     window.scrollTo({ top: 0, behavior: "auto" });
